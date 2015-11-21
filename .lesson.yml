@@ -1,0 +1,8 @@
+---
+title: "Brussels Sprouts Recipe Comments"
+type: "challenge"
+description: "Implement primary and foreign keys to create associations between two tables"
+visibility: "assign"
+tags: "sql, schema"
+ignore:
+- "brussels-sprouts-comments.md"
