@@ -30,8 +30,6 @@ TITLES = ["Roasted Brussels Sprouts",
 db_connection do |conn|
   conn.exec('DROP TABLE IF EXISTS recipes')
   conn.exec('DROP TABLE IF EXISTS comments')
-  # conn.exec("createdb brussels_sprouts_recipes")
-  # psql brussels_sprouts_recipes < shema.sql
   conn.exec("CREATE TABLE recipes (id SERIAL PRIMARY KEY, title varchar(100))")
   conn.exec("CREATE TABLE comments (id SERIAL PRIMARY KEY, text varchar(255), recipe_id int)")
 
@@ -90,23 +88,3 @@ db_connection do |conn|
   verifying_new_recipe_add = conn.exec_params('SELECT recipes.title FROM comments JOIN recipes ON comments.recipe_id = recipes.id WHERE comments.text = ($1) OR comments.text = ($2)', [comment_one, comment_two])
   puts "Succesfully added #{verifying_new_recipe_add[0]['title']} recipe and comments!"
 end
-
-
-# 'SELECT recipes.*, (SELECT COUNT(*) FROM comments WHERE comments.recipe_id = recipe.id) FROM recipes'
-    # @result = conn.exec_params('SELECT count(recipes.title = ($1)) FROM comments JOIN recipes ON comments.recipe_id = recipes.id', [r])
-    # @result = conn.exec_params('SELECT count(recipes.title = ($1)) FROM comments JOIN recipes ON comments.recipe_id = recipes.id', [r])
-# @result = conn.exec_params('SELECT (count(recipes.title = ($1))), comments.text, comments.recipe_id, recipes.id, recipes.title FROM comments JOIN recipes ON comments.recipe_id = recipes.id', [r])
-# @comments_recipes_join.each do |crj|
-#   puts "#{crj[:]}"
-# end
-
-  # @recipes.each do |r|
-  #   @result = conn.exec_params('SELECT (count(recipes.title = ($1))), comments.text, comments.recipe_id, recipes.id, recipes.title FROM comments JOIN recipes ON comments.recipe_id = recipes.id', [r])
-  #   puts @result
-  #   #.to_a
-  # end
-#
-# SELECT recipes.title, comments.text
-# FROM comments JOIN recipes ON comments.recipe_id = recipes.id;
-
-# WHERE article.title = '<title>' LIMIT 10
